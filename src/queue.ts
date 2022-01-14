@@ -1,6 +1,6 @@
-class NodeItem {
-  value: any;
-  next: NodeItem | null;
+class NodeItem<T = any> {
+  value: T;
+  next: NodeItem<T> | null;
 
   constructor(value: NodeItem['value']) {
     this.value = value;
@@ -8,9 +8,9 @@ class NodeItem {
   }
 }
 
-export default class Stack {
-  head: NodeItem | null;
-  tail: NodeItem | null;
+export default class Queue<T = any> {
+  head: NodeItem<T> | null;
+  tail: NodeItem<T> | null;
   length: number;
 
   constructor() {
@@ -19,7 +19,7 @@ export default class Stack {
     this.length = 0;
   }
 
-  enqueue(value: NodeItem['value']) {
+  enqueue(value: T) {
     let newNode = new NodeItem(value);
 
     if (!this.tail) {
@@ -33,7 +33,7 @@ export default class Stack {
     return ++this.length;
   }
 
-  dequeue(): NodeItem['value'] | null {
+  dequeue(): T | null {
     if (!this.head) return null;
 
     let currentHead = this.head;
@@ -47,7 +47,7 @@ export default class Stack {
     return currentHead.value;
   }
 
-  peak(): NodeItem['value'] {
+  peak() {
     return this.head;
   }
 }
