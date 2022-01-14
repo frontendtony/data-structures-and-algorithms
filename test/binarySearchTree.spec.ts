@@ -74,3 +74,38 @@ describe('check if a value is in the tree', () => {
     expect(newBinarySearchTree.includes(11)).toEqual(true);
   });
 });
+
+describe('get all values in a true', () => {
+  it('should return an empty array if the tree is empty', () => {
+    expect(newBinarySearchTree.values()).toHaveLength(0);
+  });
+
+  it('should return an array with the number of items in the tree', () => {
+    newBinarySearchTree.insert(10);
+    newBinarySearchTree.insert(6);
+    newBinarySearchTree.insert(15);
+    newBinarySearchTree.insert(3);
+    newBinarySearchTree.insert(8);
+    newBinarySearchTree.insert(20);
+
+    expect(newBinarySearchTree.values()).toHaveLength(6);
+  });
+
+  it('should return an array with all the values in the tree', () => {
+    newBinarySearchTree.insert(10);
+    newBinarySearchTree.insert(6);
+    newBinarySearchTree.insert(15);
+    newBinarySearchTree.insert(3);
+    newBinarySearchTree.insert(8);
+    newBinarySearchTree.insert(20);
+
+    let values = newBinarySearchTree.values();
+
+    expect(values).toContain(10);
+    expect(values).toContain(6);
+    expect(values).toContain(15);
+    expect(values).toContain(3);
+    expect(values).toContain(8);
+    expect(values).toContain(20);
+  });
+});
