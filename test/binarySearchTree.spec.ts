@@ -75,37 +75,85 @@ describe('check if a value is in the tree', () => {
   });
 });
 
-describe('get all values in a true', () => {
-  it('should return an empty array if the tree is empty', () => {
-    expect(newBinarySearchTree.values()).toHaveLength(0);
-  });
-
-  it('should return an array with the number of items in the tree', () => {
+describe('get all values in a tree', () => {
+  beforeEach(() => {
     newBinarySearchTree.insert(10);
     newBinarySearchTree.insert(6);
     newBinarySearchTree.insert(15);
     newBinarySearchTree.insert(3);
     newBinarySearchTree.insert(8);
     newBinarySearchTree.insert(20);
-
-    expect(newBinarySearchTree.values()).toHaveLength(6);
   });
 
-  it('should return an array with all the values in the tree', () => {
-    newBinarySearchTree.insert(10);
-    newBinarySearchTree.insert(6);
-    newBinarySearchTree.insert(15);
-    newBinarySearchTree.insert(3);
-    newBinarySearchTree.insert(8);
-    newBinarySearchTree.insert(20);
+  afterEach(() => {
+    newBinarySearchTree = new BinarySearchTree();
+  });
 
-    let values = newBinarySearchTree.values();
+  describe('breath first search', () => {
+    it('should return an empty array if the tree is empty', () => {
+      newBinarySearchTree = new BinarySearchTree();
+      expect(newBinarySearchTree.valuesBFS()).toHaveLength(0);
+    });
 
-    expect(values).toContain(10);
-    expect(values).toContain(6);
-    expect(values).toContain(15);
-    expect(values).toContain(3);
-    expect(values).toContain(8);
-    expect(values).toContain(20);
+    it('should return an array with the number of items in the tree', () => {
+      expect(newBinarySearchTree.valuesBFS()).toHaveLength(6);
+    });
+
+    it('should return the values in the correct order', () => {
+      let values = newBinarySearchTree.valuesBFS();
+
+      expect(values).toEqual([10, 6, 15, 3, 8, 20]);
+    });
+  });
+
+  describe('depth first search pre-order', () => {
+    it('should return an empty array if the tree is empty', () => {
+      newBinarySearchTree = new BinarySearchTree();
+      expect(newBinarySearchTree.valuesDFSPreOrder()).toHaveLength(0);
+    });
+
+    it('should return an array with the number of items in the tree', () => {
+      expect(newBinarySearchTree.valuesDFSPreOrder()).toHaveLength(6);
+    });
+
+    it('should return the values in the correct order', () => {
+      let values = newBinarySearchTree.valuesDFSPreOrder();
+
+      expect(values).toEqual([10, 6, 3, 8, 15, 20]);
+    });
+  });
+
+  describe('depth first search post-order', () => {
+    it('should return an empty array if the tree is empty', () => {
+      newBinarySearchTree = new BinarySearchTree();
+      expect(newBinarySearchTree.valuesDFSPostOrder()).toHaveLength(0);
+    });
+
+    it('should return an array with the number of items in the tree', () => {
+      expect(newBinarySearchTree.valuesDFSPostOrder()).toHaveLength(6);
+    });
+
+    it('should return the values in the correct order', () => {
+      let values = newBinarySearchTree.valuesDFSPostOrder();
+
+      expect(values).toEqual([3, 8, 6, 20, 15, 10]);
+    });
+  });
+
+  describe('depth first search in-order', () => {
+    it('should return an empty array if the tree is empty', () => {
+      newBinarySearchTree = new BinarySearchTree();
+      expect(newBinarySearchTree.valuesDFSInOrder()).toHaveLength(0);
+    });
+
+    it('should return an array with the number of items in the tree', () => {
+      expect(newBinarySearchTree.valuesDFSInOrder()).toHaveLength(6);
+    });
+
+    it('should return the values in the correct order', () => {
+      let values = newBinarySearchTree.valuesDFSInOrder();
+
+      expect(values).toEqual([3, 6, 8, 10, 15, 20]);
+    });
   });
 });

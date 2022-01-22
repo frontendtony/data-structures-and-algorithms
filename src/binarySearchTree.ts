@@ -48,6 +48,31 @@ export default class BinarySearchTree<T = any> {
     }
   }
 
+  #traverseDFSPreOrder(node: NodeItem<T>, values: T[] = []): T[] {
+    values.push(node.value);
+
+    if (node.left) this.#traverseDFSPreOrder(node.left, values);
+    if (node.right) this.#traverseDFSPreOrder(node.right, values);
+
+    return values;
+  }
+
+  #traverseDFSPostOrder(node: NodeItem<T>, values: T[] = []): T[] {
+    if (node.left) this.#traverseDFSPostOrder(node.left, values);
+    if (node.right) this.#traverseDFSPostOrder(node.right, values);
+    values.push(node.value);
+
+    return values;
+  }
+
+  #traverseDFSInOrder(node: NodeItem<T>, values: T[] = []): T[] {
+    if (node.left) this.#traverseDFSInOrder(node.left, values);
+    values.push(node.value);
+    if (node.right) this.#traverseDFSInOrder(node.right, values);
+
+    return values;
+  }
+
   insert(value: T): BinarySearchTree {
     let newNode = new NodeItem(value);
     if (!this.root) {
@@ -62,7 +87,7 @@ export default class BinarySearchTree<T = any> {
     return this.#includes(value, this.root);
   }
 
-  values() {
+  valuesBFS() {
     let returnValues: T[] = [];
 
     for (let value of this) {
@@ -71,6 +96,30 @@ export default class BinarySearchTree<T = any> {
     return returnValues;
   }
 
+  /**
+   * Returns the values in the order that makes it possible to reconstruct the tree
+   */
+  valuesDFSPreOrder() {
+    if (!this.root) return [];
+    return this.#traverseDFSPreOrder(this.root, []);
+  }
+
+  valuesDFSPostOrder() {
+    if (!this.root) return [];
+    return this.#traverseDFSPostOrder(this.root, []);
+  }
+
+  /**
+   * Returns the values in adcending order
+   */
+  valuesDFSInOrder() {
+    if (!this.root) return [];
+    return this.#traverseDFSInOrder(this.root, []);
+  }
+
+  /**
+   * This implements the breath first search (BFS) algorithm
+   */
   [Symbol.iterator]() {
     let queue = new Queue<NodeItem<T>>();
 
